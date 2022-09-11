@@ -3,10 +3,11 @@ import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
+import SearchStyles from "../styles/SearchStyles";
 
 export default function SearchBar({ cityhandler }) {
   return (
-    <View style={{ marginTop: 15, flexDirection: "row" }}>
+    <View style={SearchStyles.Container}>
       <GooglePlacesAutocomplete
         query={{ key: "AIzaSyD-tZDCkTsiF_dxRkByAJikjzh8TRwjC3Y" }}
         onPress={(data, details = null) => {
@@ -36,20 +37,11 @@ export default function SearchBar({ cityhandler }) {
           </View>
         )}
         renderRightButton={() => (
-          <View
-            style={{
-              flexDirection: "row",
-              marginRight: 8,
-              backgroundColor: "white",
-              padding: 9,
-              borderRadius: 30,
-              alignItems: "center",
-            }}
-          >
+          <View style={SearchStyles.Button}>
             <AntDesign
               name="clockcircle"
               size={11}
-              style={{ marginRight: 6 }}
+              style={SearchStyles.AntDesign}
             />
             <Text>Search</Text>
           </View>
