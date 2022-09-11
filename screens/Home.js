@@ -6,6 +6,8 @@ import Categories from "../componets/Categories";
 import RestaurantItems, {
   localRestaurants,
 } from "../componets/RestaurantItems";
+import { Divider } from "react-native-elements";
+import BottomTabs from "../componets/BottomTabs";
 
 const YELP_API_KEY =
   "OTSAaTeIvVnQGHaD-f94B51SCwFt40HYfNYjqApXnKXnSyZggvEHcY3E-NTRMC0cMmddlQ5p0eDq5ggpjp7zGcGsl4VjWMHpa-KEeb-ReazgsMnzDig8ComP9_4cY3Yx";
@@ -50,6 +52,8 @@ export default function Home() {
         <Categories />
         <RestaurantItems restaurantData={restaurantData} />
       </ScrollView>
+      <Divider width={1} />
+      <BottomTabs />
     </SafeAreaView>
   );
 }
