@@ -6,17 +6,16 @@ import Categories from "../componets/Categories";
 import RestaurantItems, {
   localRestaurants,
 } from "../componets/RestaurantItems";
-import axios from "axios";
 
 const YELP_API_KEY =
   "OTSAaTeIvVnQGHaD-f94B51SCwFt40HYfNYjqApXnKXnSyZggvEHcY3E-NTRMC0cMmddlQ5p0eDq5ggpjp7zGcGsl4VjWMHpa-KEeb-ReazgsMnzDig8ComP9_4cY3Yx";
 
 export default function Home() {
   const [restaurantData, setRestaurantData] = useState(localRestaurants);
+  const [city, SetCity] = useState("LosAngeles");
 
   const getRestaurantsFromYelp = () => {
-    const yelpUrl =
-      "https://api.yelp.com/v3/businesses/search?term=restaurants&location=LosAngeles";
+    const yelpUrl = `https://api.yelp.com/v3/businesses/search?term=restaurants&location=${city}`;
 
     const apiOptions = {
       headers: {
@@ -33,12 +32,12 @@ export default function Home() {
 
   useEffect(() => {
     getRestaurantsFromYelp();
-  }, []);
+  }, [city]);
   return (
     <SafeAreaView style={{ backgroundColor: "#eee", flex: 1 }}>
       <View style={{ backgroundColor: "white", padding: 15 }}>
         <HeaderTabs />
-        <SearchBar />
+        <SearchBar cityhandler={SetCity} />
       </View>
       <ScrollView showsHorizontalScrollIndicator={false}>
         <Categories />
