@@ -15,22 +15,33 @@ export default function ViewCart() {
 
   console.log(totalUSD);
   return (
-    <View style={styles.Container}>
-      <View style={styles.subContainer}>
-        <TouchableOpacity style={styles.button}>
-          <Text style={{ color: "white", fontSize: 20 }}>View Cart</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    <>
+      {total ? (
+        <View style={styles.Container}>
+          <View style={styles.subContainer}>
+            <TouchableOpacity style={styles.button}>
+              <Text style={{ color: "white", fontSize: 20, marginRight: 40 }}>
+                View Cart
+              </Text>
+              <Text style={{ color: "white", fontSize: 20 }}>{totalUSD}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      ) : (
+        <></>
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   button: {
     marginTop: 20,
+    flexDirection: "row",
+    justifyContent: "flex-end",
     backgroundColor: "black",
     alignItems: "center",
-    padding: 13,
+    padding: 15,
     borderRadius: 30,
     width: 320,
     position: "relative",
