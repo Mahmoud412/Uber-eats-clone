@@ -1,17 +1,11 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React from "react";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import ButtomTabsStyle from "../../styles/ButtomTabsStyle";
 
 export default function BottomTabs() {
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        justifyContent: "space-between",
-        marginHorizontal: 30,
-        margin: 10,
-      }}
-    >
+    <View style={ButtomTabsStyle.container}>
       <Icon icon="home" text="home" />
       <Icon icon="search" text="Browse" />
       <Icon icon="shopping-bag" text="Grocery" />

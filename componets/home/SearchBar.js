@@ -3,8 +3,7 @@ import React from "react";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import AntDesign from "react-native-vector-icons/AntDesign";
-import SearchStyles from "../styles/SearchStyles";
-
+import SearchStyles from "../../styles/SearchStyles";
 export default function SearchBar({ cityhandler }) {
   return (
     <View style={SearchStyles.Container}>

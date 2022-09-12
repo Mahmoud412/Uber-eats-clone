@@ -1,17 +1,33 @@
 import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import StyleSheet from "../styles/StyleSheet";
-export default function RestaurantItems(props) {
+import StyleSheet from "../../styles/StyleSheet";
+export default function RestaurantItems({ navigation, ...props }) {
   return (
-    <TouchableOpacity activeOpacity={1} style={{ marginBottom: 5 }}>
+    <>
       {props.restaurantData.map((restaurant, index) => (
-        <View key={index} style={StyleSheet.container}>
-          <RestaurantImage image={restaurant.image_url} />
-          <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
-        </View>
+        <TouchableOpacity
+          key={index}
+          activeOpacity={1}
+          style={{ marginBottom: 5 }}
+          onPress={() =>
+            navigation.navigate("ResturantDetail", {
+              name: restaurant.name,
+              image: restaurant.image_url,
+              price: restaurant.price,
+              reviews: restaurant.review_count,
+              rating: restaurant.rating,
+              categories: restaurant.categories,
+            })
+          }
+        >
+          <View style={StyleSheet.container}>
+            <RestaurantImage image={restaurant.image_url} />
+            <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
+          </View>
+        </TouchableOpacity>
       ))}
-    </TouchableOpacity>
+    </>
   );
 }
 
