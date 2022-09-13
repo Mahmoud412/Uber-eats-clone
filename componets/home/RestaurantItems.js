@@ -2,6 +2,7 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
 import React from "react";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import StyleSheet from "../../styles/StyleSheet";
+
 export default function RestaurantItems({ navigation, ...props }) {
   return (
     <>
