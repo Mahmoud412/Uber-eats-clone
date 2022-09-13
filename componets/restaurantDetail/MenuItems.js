@@ -7,71 +7,7 @@ import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
 
-const foods = [
-  {
-    title: "Lasagna",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://media.istockphoto.com/photos/lasagna-on-a-square-white-plate-picture-id535851351?k=20&m=535851351&s=612x612&w=0&h=jdWOk9G_OOzHvPrvFrigqzk3EoucmIhUZr1-ey9NcGM=",
-  },
-  {
-    title: "Tandoori Chicken",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://www.indianhealthyrecipes.com/wp-content/uploads/2014/09/tandoori-chicken.jpg",
-  },
-  {
-    title: "Chilaquiles",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://keviniscooking.com/wp-content/uploads/2021/12/Chilaquiles-Verdes-square.jpg",
-  },
-  {
-    title: "Chicken Caesar Salad",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-327831_11-3524329.jpg",
-  },
-  {
-    title: "Chicken Caesar Salad",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-327831_11-3524329.jpg",
-  },
-  {
-    title: "Chicken Caesar Salad",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-327831_11-3524329.jpg",
-  },
-  {
-    title: "Chicken Caesar Salad",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-327831_11-3524329.jpg",
-  },
-  {
-    title: "Chicken Caesar Salad",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-327831_11-3524329.jpg",
-  },
-  {
-    title: "Chicken Caesar Salad",
-    description: "with butter lettuce , tomato and sauce bechamel",
-    price: "$13.50",
-    image:
-      "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/recipe-image-legacy-id-327831_11-3524329.jpg",
-  },
-];
+
 
 const styles = StyleSheet.create({
   menuItemStyle: {
@@ -85,7 +21,12 @@ const styles = StyleSheet.create({
   },
 });
 
-export default function MenuItems({ restaurantName }) {
+export default function MenuItems({
+  restaurantName,
+  foods,
+  hideCheckbox,
+  marginLeft,
+}) {
   const dispatch = useDispatch();
 
   const selectItem = (item, checkboxValue) =>
@@ -110,15 +51,19 @@ export default function MenuItems({ restaurantName }) {
       {foods.map((food, index) => (
         <View key={index}>
           <View style={styles.menuItemStyle}>
-            <BouncyCheckbox
-              iconStyle={{ borderColor: "#d3d3d3" }}
-              fillColor="green"
-              onPress={(checkboxValue) => selectItem(food, checkboxValue)}
-              isChecked={isFoodInCart(food, cartItems)}
-            />
+            {hideCheckbox ? (
+              <></>
+            ) : (
+              <BouncyCheckbox
+                iconStyle={{ borderColor: "#d3d3d3" }}
+                fillColor="green"
+                onPress={(checkboxValue) => selectItem(food, checkboxValue)}
+                isChecked={isFoodInCart(food, cartItems)}
+              />
+            )}
 
             <FoodInfo food={food} />
-            <FoodImage food={food} />
+            <FoodImage food={food} marginLeft={marginLeft ? marginLeft : 0} />
           </View>
           <Divider
             width={0.5}
@@ -139,11 +84,16 @@ const FoodInfo = (props) => (
   </View>
 );
 
-const FoodImage = (props) => (
+const FoodImage = ({ marginLeft, ...props }) => (
   <View>
     <Image
       source={{ uri: props.food.image }}
-      style={{ width: 100, height: 100, borderRadius: 8 }}
+      style={{
+        width: 100,
+        height: 100,
+        borderRadius: 8,
+        marginLeft: marginLeft,
+      }}
     />
   </View>
 );
