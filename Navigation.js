@@ -7,25 +7,35 @@ import ResturantDetail from "./screens/ResturantDetail";
 import { Provider as ReduxProvider } from "react-redux";
 import configureStore from "./redux/store";
 import OrderCompleted from "./screens/OrderCompleted";
+import Register from "./screens/Register";
+import Account from "./screens/Account";
+import LoginScreen from "./screens/LoginScreen";
 
 const store = configureStore();
 
-export default function Navigation() {
-  const Stack = createStackNavigator();
+const Stack = createStackNavigator();
+const screenoptions = {
+  headerShown: false,
+};
 
-  const screenoptions = {
-    headerShown: false,
-  };
-
-  return (
+export const SignedInStack = () => (
+  <NavigationContainer>
     <ReduxProvider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="Home" screenOptions={screenoptions}>
-          <Stack.Screen name="home" component={Home} />
-          <Stack.Screen name="ResturantDetail" component={ResturantDetail} />
-          <Stack.Screen name="OrderCompleted" component={OrderCompleted} />
-        </Stack.Navigator>
-      </NavigationContainer>
+      <Stack.Navigator initialRouteName="Home" screenOptions={screenoptions}>
+        <Stack.Screen name="home" component={Home} />
+        <Stack.Screen name="ResturantDetail" component={ResturantDetail} />
+        <Stack.Screen name="OrderCompleted" component={OrderCompleted} />
+        <Stack.Screen name="Account" component={Account} />
+      </Stack.Navigator>
     </ReduxProvider>
-  );
-}
+  </NavigationContainer>
+);
+
+export const SignedOutStack = () => (
+  <NavigationContainer>
+    <Stack.Navigator initialRouteName="Login" screenOptions={screenoptions}>
+      <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Screen name="Register" component={Register} />
+    </Stack.Navigator>
+  </NavigationContainer>
+);

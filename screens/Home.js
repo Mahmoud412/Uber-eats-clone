@@ -12,7 +12,7 @@ import BottomTabs from "../componets/home/BottomTabs";
 const YELP_API_KEY =
   "OTSAaTeIvVnQGHaD-f94B51SCwFt40HYfNYjqApXnKXnSyZggvEHcY3E-NTRMC0cMmddlQ5p0eDq5ggpjp7zGcGsl4VjWMHpa-KEeb-ReazgsMnzDig8ComP9_4cY3Yx";
 
-export default function Home({ navigation }) {
+const Home = ({ navigation }) => {
   const [restaurantData, setRestaurantData] = useState([]);
   const [city, SetCity] = useState("LosAngeles");
   const [activeTab, setActiveTab] = useState("Delivery"); //lefting the state up inside of react
@@ -56,7 +56,9 @@ export default function Home({ navigation }) {
         />
       </ScrollView>
       <Divider width={1} />
-      <BottomTabs />
+      <BottomTabs navigation={navigation} />
     </SafeAreaView>
   );
-}
+};
+
+export default Home;

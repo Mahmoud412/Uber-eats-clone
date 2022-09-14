@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Modal,
   Pressable,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
@@ -28,22 +29,31 @@ export default function ViewCart({ navigation }) {
     currency: "USD",
   });
 
-  const addOrderToFireBase = () => {
-    setLoading(true);
-    const db = firebase.firestore();
-    db.collection("orders")
-      .add({
-        items: items,
-        restaurantName: restaurantName,
-        createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      })
-      .then(() => {
-        setTimeout(() => {
-          setLoading(false);
-          navigation.navigate("OrderCompleted");
-        }, 2500);
-      });
+  const addOrderToFireBase = async () => {
+    try {
+      setLoading(true);
+      const db = firebase.firestore();
+
+      await db
+        .collection("users")
+        .doc(firebase.auth().currentUser.email)
+        .collection("orders")
+        .add({
+          items: items,
+          restaurantName: restaurantName,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+        })
+        .then(() => {
+          setTimeout(() => {
+            setLoading(false);
+            navigation.navigate("OrderCompleted");
+          }, 2500);
+        });
+    } catch (error) {
+      Alert.alert(erorr.message);
+    }
   };
+
   return (
     <>
       <View>

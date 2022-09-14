@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
+import { icon, Button } from "react-native-elements";
 
 export default function HeaderTabs(props) {
   const [activeTab, setActiveTab] = useState("Delivery");
