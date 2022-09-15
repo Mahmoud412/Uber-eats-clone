@@ -10,7 +10,7 @@ import {
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
-import { firebase } from "../../firebase";
+import { firebase, db } from "../../firebase";
 import LottieView from "lottie-react-native";
 
 export default function ViewCart({ navigation }) {
@@ -32,28 +32,30 @@ export default function ViewCart({ navigation }) {
   const addOrderToFireBase = async () => {
     try {
       setLoading(true);
-      const db = firebase.firestore();
+      const owner_uid = db
+        .collection("users")
+        .doc(firebase.auth().currentUser.uid);
+      const email = db
+        .collection("users")
+        .doc(firebase.auth().currentUser.email);
 
       await db
-        .collection("users")
-        .doc(firebase.auth().currentUser.email)
         .collection("orders")
         .add({
           items: items,
           restaurantName: restaurantName,
           createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          owner_uid: owner_uid,
+          email: email,
         })
         .then(() => {
           setTimeout(() => {
             setLoading(false);
             navigation.navigate("OrderCompleted");
-          }, 2500);
+          }, 1000);
         });
-    } catch (error) {
-      Alert.alert(erorr.message);
-    }
+    } catch (error) {}
   };
-
   return (
     <>
       <View>
@@ -135,7 +137,7 @@ export default function ViewCart({ navigation }) {
             style={{ height: 200 }}
             source={require("../../assets/animations/scanner.json")}
             autoPlay
-            speed={20}
+            speed={3}
           />
         </View>
       ) : (
