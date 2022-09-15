@@ -2,7 +2,6 @@ import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet,
   Modal,
   Pressable,
   Alert,
@@ -12,6 +11,7 @@ import { useSelector } from "react-redux";
 import OrderItem from "./OrderItem";
 import { firebase, db } from "../../firebase";
 import LottieView from "lottie-react-native";
+import ViewCartStyle from "../../styles/ViewCartStyle";
 
 export default function ViewCart({ navigation }) {
   const [modalVisible, setModalVisible] = useState(false);
@@ -68,35 +68,27 @@ export default function ViewCart({ navigation }) {
             setModalVisible(false);
           }}
         >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>{restaurantName}</Text>
+          <View style={ViewCartStyle.centeredView}>
+            <View style={ViewCartStyle.modalView}>
+              <Text style={ViewCartStyle.modalText}>{restaurantName}</Text>
               {items.map((item, index) => (
                 <OrderItem key={index} item={item} />
               ))}
 
-              <View style={styles.subtotalContainer}>
-                <Text style={styles.subtotalText}>Subtotal</Text>
+              <View style={ViewCartStyle.subtotalContainer}>
+                <Text style={ViewCartStyle.subtotalText}>Subtotal</Text>
                 <Text>{totalUSD}</Text>
               </View>
 
               <Pressable
-                style={[styles.buttonModal, styles.buttonClose]}
+                style={[ViewCartStyle.buttonModal, ViewCartStyle.buttonClose]}
                 onPress={() => {
                   addOrderToFireBase();
                   setModalVisible(false);
                 }}
               >
-                <Text style={styles.textStyle}>CheckOut!</Text>
-                <Text
-                  style={{
-                    position: "absolute",
-                    right: 20,
-                    color: "white",
-                    top: 15,
-                    fontSize: 15,
-                  }}
-                >
+                <Text style={ViewCartStyle.textStyle}>CheckOut!</Text>
+                <Text style={ViewCartStyle.checkoutText}>
                   {total ? totalUSD : ""}
                 </Text>
               </Pressable>
@@ -105,16 +97,14 @@ export default function ViewCart({ navigation }) {
         </Modal>
       </View>
       {total ? (
-        <View style={styles.Container}>
-          <View style={styles.subContainer}>
+        <View style={ViewCartStyle.Container}>
+          <View style={ViewCartStyle.subContainer}>
             <TouchableOpacity
               onPress={() => setModalVisible(true)}
-              style={styles.button}
+              style={ViewCartStyle.button}
             >
-              <Text style={{ color: "white", fontSize: 20, marginRight: 40 }}>
-                View Cart
-              </Text>
-              <Text style={{ color: "white", fontSize: 20 }}>{totalUSD}</Text>
+              <Text style={ViewCartStyle.viewCartText}>View Cart</Text>
+              <Text style={ViewCartStyle.totalUsd}>{totalUSD}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -122,17 +112,7 @@ export default function ViewCart({ navigation }) {
         <></>
       )}
       {loading ? (
-        <View
-          style={{
-            backgroundColor: "black",
-            position: "absolute",
-            opacity: 0.6,
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100%",
-            width: "100%",
-          }}
-        >
+        <View style={ViewCartStyle.loadingIcon}>
           <LottieView
             style={{ height: 200 }}
             source={require("../../assets/animations/scanner.json")}
@@ -146,79 +126,3 @@ export default function ViewCart({ navigation }) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  button: {
-    marginTop: 20,
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    backgroundColor: "black",
-    alignItems: "center",
-    padding: 15,
-    borderRadius: 30,
-    width: 320,
-    position: "relative",
-  },
-  subContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    width: "100%",
-  },
-  Container: {
-    flex: 1,
-    alignItems: "center",
-    flexDirection: "row",
-    position: "absolute",
-    top: 840,
-    zIndex: 999,
-  },
-  centeredView: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "flex-end",
-    backgroundColor: "rgba(0,0,0,0.7)",
-  },
-  modalView: {
-    margin: 5,
-    borderRadius: 20,
-    padding: 35,
-    height: 550,
-    backgroundColor: "white",
-    borderWidth: 1,
-    width: 400,
-  },
-  buttonModal: {
-    borderRadius: 30,
-    padding: 15,
-    elevation: 2,
-    marginTop: 20,
-  },
-  buttonOpen: {
-    backgroundColor: "#F194FF",
-  },
-  buttonClose: {
-    backgroundColor: "black",
-  },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center",
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center",
-    fontSize: 18,
-    fontWeight: "600",
-  },
-  subtotalContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginTop: 15,
-  },
-  subtotalText: {
-    textAlign: "left",
-    fontWeight: "600",
-    fontSize: 15,
-    marginBottom: 10,
-  },
-});

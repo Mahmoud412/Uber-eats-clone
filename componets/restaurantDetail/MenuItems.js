@@ -6,20 +6,7 @@ import BouncyCheckbox from "react-native-bouncy-checkbox";
 import { useSelector } from "react-redux";
 
 import { useDispatch } from "react-redux";
-
-
-
-const styles = StyleSheet.create({
-  menuItemStyle: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    margin: 20,
-  },
-  titleStyle: {
-    fontSize: 17,
-    fontWeight: "600",
-  },
-});
+import MenuItemsStyle from "../../styles/MenuItemsStyle";
 
 export default function MenuItems({
   restaurantName,
@@ -50,7 +37,7 @@ export default function MenuItems({
     <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
       {foods.map((food, index) => (
         <View key={index}>
-          <View style={styles.menuItemStyle}>
+          <View style={MenuItemsStyle.menuItemStyle}>
             {hideCheckbox ? (
               <></>
             ) : (
@@ -78,7 +65,7 @@ export default function MenuItems({
 
 const FoodInfo = (props) => (
   <View style={{ width: 240, justifyContent: "space-evenly" }}>
-    <Text style={styles.titleStyle}>{props.food.title}</Text>
+    <Text style={MenuItemsStyle.titleStyle}>{props.food.title}</Text>
     <Text>{props.food.description}</Text>
     <Text>{props.food.price}</Text>
   </View>
